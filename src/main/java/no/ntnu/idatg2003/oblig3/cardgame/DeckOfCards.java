@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class DeckOfCards {
 
   private final char[] suits = {'S', 'H', 'D', 'C'};
-  private final int numberOfCards = 52;
+  private int numberOfCards;
   private ArrayList<PlayingCard> deckOfCards;
 
   /**
@@ -23,6 +23,7 @@ public class DeckOfCards {
    * (Spade, Heart, Diamonds and Clubs), and with face values from 1 to 13.
    */
   public DeckOfCards() {
+    numberOfCards = 52;
     deckOfCards = new ArrayList<>(numberOfCards);
     for (char suit : suits) {
       for (int face = 1; face <= 13; face++) {
@@ -40,14 +41,15 @@ public class DeckOfCards {
    */
   public Collection<PlayingCard> dealHand(int n) {
     if (n < 0 || n > numberOfCards) {
-      throw new IllegalArgumentException("Parameter n must be a number between 0 and 52");
+      throw new IllegalArgumentException("Parameter n must be a number between 0 and " + numberOfCards);
     }
     Random random = new Random();
     ArrayList<PlayingCard> hand = new ArrayList<>(n);
     for (int i = 0; i < n; i++) {
-      int cardIndex = random.nextInt(numberOfCards - i);
+      int cardIndex = random.nextInt(numberOfCards);
       hand.add(deckOfCards.get(cardIndex));
       deckOfCards.remove(cardIndex);
+      numberOfCards--;
     }
     return hand;
   }
@@ -100,5 +102,14 @@ public class DeckOfCards {
         .collect(Collectors.groupingBy(PlayingCard::getSuit))
         .values().stream()
         .anyMatch(cards -> cards.size() >= 5);
+  }
+
+  /**
+   * Returns a string representation of a hand of cards.
+   */
+  public String handToString(Collection<PlayingCard> hand) {
+    return hand.stream()
+        .map(PlayingCard::getAsString)
+        .collect(Collectors.joining(" "));
   }
 }
