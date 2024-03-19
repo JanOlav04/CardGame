@@ -20,16 +20,19 @@ public class Gui extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     deck = new DeckOfCards();
+    // Create buttons
     Button dealHandButton = new Button("Deal Hand");
     Button checkHandButton = new Button("Check Hand");
 
-
+    // Create pane and set values
     GridPane pane = new GridPane();
     pane.setAlignment(Pos.CENTER);
     pane.setHgap(10);
     pane.setVgap(10);
+    // add buttons to pane
     pane.add(dealHandButton, 1, 2);
     pane.add(checkHandButton, 1, 3);
+    // add text to pane
     Text handOfCards = new Text("Hand of cards: " + "Empty");
     handOfCards.setFont(new javafx.scene.text.Font(14));
     pane.add(handOfCards, 0, 0);
@@ -41,11 +44,12 @@ public class Gui extends Application {
     pane.add(heartsInHandText, 0, 3);
     Text flushText = new Text("Has flush: " + hasFlush);
     pane.add(flushText, 0, 4);
+    // Create scene
     Scene scene = new Scene(pane, 350, 300);
     stage.setScene(scene);
     stage.setTitle("Card Game");
     stage.show();
-
+    // Add actions to buttons
     dealHandButton.setOnAction(e -> {
       hand = deck.dealHand(5);
       handOfCards.setText("Hand of cards: " + deck.handToString(hand));});
