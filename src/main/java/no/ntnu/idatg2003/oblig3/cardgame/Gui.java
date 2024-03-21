@@ -51,6 +51,9 @@ public class Gui extends Application {
     stage.show();
     // Add actions to buttons
     dealHandButton.setOnAction(e -> {
+      if (deck.getNumberOfCards() <= 5){
+        deck = new DeckOfCards();
+      }
       hand = deck.dealHand(5);
       handOfCards.setText("Hand of cards: " + deck.handToString(hand));});
     checkHandButton.setOnAction(e -> {

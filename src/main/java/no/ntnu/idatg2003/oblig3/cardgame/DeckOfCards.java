@@ -43,6 +43,7 @@ public class DeckOfCards {
     if (n < 0 || n > numberOfCards) {
       throw new IllegalArgumentException("Parameter n must be a number between 0 and " + numberOfCards);
     }
+
     Random random = new Random();
     ArrayList<PlayingCard> hand = new ArrayList<>(n);
     for (int i = 0; i < n; i++) {
@@ -111,5 +112,12 @@ public class DeckOfCards {
     return hand.stream()
         .map(PlayingCard::getAsString)
         .collect(Collectors.joining(" "));
+  }
+
+  /**
+   * Returns the number of cards left in the deck.
+   */
+  public int getNumberOfCards() {
+    return numberOfCards;
   }
 }
